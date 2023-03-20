@@ -4,14 +4,12 @@
  */
 package perpustakaan;
 
+import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
-/**
- *
- * @author Alifia
- */
 public class FormPeminjaman extends javax.swing.JFrame {
 
     /**
@@ -57,10 +55,14 @@ public class FormPeminjaman extends javax.swing.JFrame {
         setPreferredSize(new java.awt.Dimension(600, 600));
 
         
-    btnCari1.setText("Cari");
     btnCari1.addMouseListener(new java.awt.event.MouseAdapter() {
         public void mouseClicked(java.awt.event.MouseEvent evt) {
             btnCari1MouseClicked(evt);
+        }
+    });
+    btnCari1.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            btnCari1ActionPerformed(evt);
         }
     });
     btnBatal.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -73,9 +75,19 @@ public class FormPeminjaman extends javax.swing.JFrame {
             btnKonfirmasiMouseClicked(evt);
         }
     });
+    btnKonfirmasi.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            btnKonfirmasiActionPerformed(evt);
+        }  
+    });
     btnPinjam.addMouseListener(new java.awt.event.MouseAdapter() {
         public void mouseClicked(java.awt.event.MouseEvent evt) {
             btnPinjamMouseClicked(evt);
+        }
+    });
+    btnPinjam.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            btnPinjamActionPerformed(evt);
         }
     });
 
@@ -289,6 +301,14 @@ public class FormPeminjaman extends javax.swing.JFrame {
 
     
 
+    
+
+    private void btnKonfirmasiActionPerformed(java.awt.event.ActionEvent evt) {
+    }
+
+    private void btnCari1ActionPerformed(java.awt.event.ActionEvent evt) {
+    }
+
     private void btnCari1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonCariMouseClicked
         // TODO add your handling code here:
         String judul = Input_cari1.getText();
@@ -300,11 +320,21 @@ public class FormPeminjaman extends javax.swing.JFrame {
     }
     private void btnKonfirmasiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonCariMouseClicked
         // TODO add your handling code here:
+        DefaultTableModel model = (DefaultTableModel) Table_buku.getModel();
+        if(Table_buku.getRowCount() <= 10){
+            JOptionPane.showMessageDialog(this, "Peminjaman telah dikonfirmasi");
+        }
+        else{
+            JOptionPane.showMessageDialog(this, "Jumlah buku yang dipinjam melebihi batas maksimal 10 buku");
+        }
 
+    }
+    private void btnPinjamActionPerformed(java.awt.event.ActionEvent evt) {
     }
     private void btnPinjamMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonCariMouseClicked
         // TODO add your handling code here:
-
+        DefaultTableModel model = (DefaultTableModel) Table_buku.getModel();
+        model.addRow(new Object[]{Table_buku.getValueAt(Table_buku.getSelectedRow(), Table_buku.getSelectedColumn())});
     }
 
     private void hapusBuku(int row) {//GEN-FIRST:event_jButtonCariMouseClicked
