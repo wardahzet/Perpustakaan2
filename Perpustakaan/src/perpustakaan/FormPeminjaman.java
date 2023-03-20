@@ -61,11 +61,6 @@ public class FormPeminjaman extends javax.swing.JFrame {
             btnCari1MouseClicked(evt);
         }
     });
-    btnCari1.addActionListener(new java.awt.event.ActionListener() {
-        public void actionPerformed(java.awt.event.ActionEvent evt) {
-            btnCari1ActionPerformed(evt);
-        }
-    });
     btnBatal.addMouseListener(new java.awt.event.MouseAdapter() {
         public void mouseClicked(java.awt.event.MouseEvent evt) {
             btnBatalMouseClicked(evt);
@@ -76,19 +71,9 @@ public class FormPeminjaman extends javax.swing.JFrame {
             btnKonfirmasiMouseClicked(evt);
         }
     });
-    btnKonfirmasi.addActionListener(new java.awt.event.ActionListener() {
-        public void actionPerformed(java.awt.event.ActionEvent evt) {
-            btnKonfirmasiActionPerformed(evt);
-        }  
-    });
     btnPinjam.addMouseListener(new java.awt.event.MouseAdapter() {
         public void mouseClicked(java.awt.event.MouseEvent evt) {
             btnPinjamMouseClicked(evt);
-        }
-    });
-    btnPinjam.addActionListener(new java.awt.event.ActionListener() {
-        public void actionPerformed(java.awt.event.ActionEvent evt) {
-            btnPinjamActionPerformed(evt);
         }
     });
 
@@ -284,7 +269,7 @@ public class FormPeminjaman extends javax.swing.JFrame {
         list.addAll(bukuDipinjamCollection);
         tampilPinjaman(list);
     }
-    
+
     private void btnKonfirmasiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonCariMouseClicked
         // TODO add your handling code here:
         DefaultTableModel model = (DefaultTableModel) Table_buku.getModel();
