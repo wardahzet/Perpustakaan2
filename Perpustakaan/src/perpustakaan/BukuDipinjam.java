@@ -1,8 +1,12 @@
 package perpustakaan;
 
-public class BukuDipinjam {
+public class BukuDipinjam extends Buku{
+    public BukuDipinjam(String judul) {
+        super(judul);
+
+    }
+
     public int lama;
-    public String judul;
     
     // public BukuDipinjam(int lama) {
     //     this.lama = lama;
