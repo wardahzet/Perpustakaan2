@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import java.util.Vector;
 
 public class FormPeminjaman extends javax.swing.JFrame {
 
@@ -262,51 +263,6 @@ public class FormPeminjaman extends javax.swing.JFrame {
         );
 
         pack();
-    }// </editor-fold>                        
-
-    // /**
-    //  * @param args the command line arguments
-    //  */
-    // public static void main(String args[]) {
-    //     /* Set the Nimbus look and feel */
-    //     //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-    //     /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-    //      * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-    //      */
-    //     try {
-    //         for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-    //             if ("Nimbus".equals(info.getName())) {
-    //                 javax.swing.UIManager.setLookAndFeel(info.getClassName());
-    //                 break;
-    //             }
-    //         }
-    //     } catch (ClassNotFoundException ex) {
-    //         java.util.logging.Logger.getLogger(UI_Peminjaman.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-    //     } catch (InstantiationException ex) {
-    //         java.util.logging.Logger.getLogger(UI_Peminjaman.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-    //     } catch (IllegalAccessException ex) {
-    //         java.util.logging.Logger.getLogger(UI_Peminjaman.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-    //     } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-    //         java.util.logging.Logger.getLogger(UI_Peminjaman.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-    //     }
-    //     //</editor-fold>
-
-    //     /* Create and display the form */
-    //     java.awt.EventQueue.invokeLater(new Runnable() {
-    //         public void run() {
-    //             new UI_Peminjaman().setVisible(true);
-    //         }
-    //     });
-    // }
-
-    
-
-    
-
-    private void btnKonfirmasiActionPerformed(java.awt.event.ActionEvent evt) {
-    }
-
-    private void btnCari1ActionPerformed(java.awt.event.ActionEvent evt) {
     }
 
     private void btnCari1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonCariMouseClicked
@@ -316,8 +272,19 @@ public class FormPeminjaman extends javax.swing.JFrame {
     }
     private void btnBatalMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonCariMouseClicked
         // TODO add your handling code here:
-        hapusBuku(Table_buku.getSelectedRow());
+        DefaultTableModel model = (DefaultTableModel) Table_buku.getModel();
+        int selectedRow = Table_buku.getSelectedRow();
+        if (selectedRow != -1) { // pastikan ada baris yang dipilih
+            BukuProvider dataProvider = new BukuProvider();
+            String judul = (String) model.getValueAt(selectedRow, 0);
+            Buku buku = dataProvider.selectBuku(judul).get(0);
+            hapusBuku(buku);
+        }
+        ArrayList<Buku> list = new ArrayList<>();
+        list.addAll(bukuDipinjamCollection);
+        tampilPinjaman(list);
     }
+    
     private void btnKonfirmasiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonCariMouseClicked
         // TODO add your handling code here:
         DefaultTableModel model = (DefaultTableModel) Table_buku.getModel();
@@ -327,27 +294,57 @@ public class FormPeminjaman extends javax.swing.JFrame {
         else{
             JOptionPane.showMessageDialog(this, "Jumlah buku yang dipinjam melebihi batas maksimal 10 buku");
         }
+    }
 
-    }
-    private void btnPinjamActionPerformed(java.awt.event.ActionEvent evt) {
-    }
     private void btnPinjamMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonCariMouseClicked
         // TODO add your handling code here:
-        DefaultTableModel model = (DefaultTableModel) Table_buku.getModel();
-        model.addRow(new Object[]{Table_buku.getValueAt(Table_buku.getSelectedRow(), Table_buku.getSelectedColumn())});
-    }
-
-    private void hapusBuku(int row) {//GEN-FIRST:event_jButtonCariMouseClicked
-        // TODO add your handling code here:
-  
-
-        if(row >= 0) {
-            DefaultTableModel model = (DefaultTableModel) Table_buku.getModel();
-            model.removeRow(row);
+        DefaultTableModel model = (DefaultTableModel) Table_pencarian.getModel();
+        int selectedRow = Table_pencarian.getSelectedRow();
+        ArrayList<String> data = new ArrayList<String>();
+        if (selectedRow != -1) { // pastikan ada baris yang dipilih
+            BukuProvider dataProvider = new BukuProvider();
+            String judul = (String) model.getValueAt(selectedRow, 0);
+            Buku buku = dataProvider.selectBuku(judul).get(0);
+            int lama = Integer.parseInt(Input_lama.getText());
+            if(lama > 0) {
+                tambahBuku(buku, lama);
+            }
         }
+        System.out.println(bukuDipinjamCollection);
+        ArrayList<Buku> list = new ArrayList<>();
+        list.addAll(bukuDipinjamCollection);
+        tampilPinjaman(list);
     }
 
-    
+    private void tambahBuku(Buku buku, int lama) {
+        BukuDipinjam bukuDipinjam = new BukuDipinjam(buku.judul,lama);
+        bukuDipinjamCollection.add(bukuDipinjam);
+    }
+
+    private void tampilPinjaman(ArrayList<Buku> buku) {
+        Object[] kolom = { "Judul" };
+        DefaultTableModel model = new DefaultTableModel(kolom, 0);
+        
+        for(Buku bukuu : buku) {
+            Object[] baris = { bukuu.judul };
+            model.addRow(baris);
+        }
+        
+        Table_buku.setModel(model);
+    }
+
+    private void hapusBuku(Buku buku) {//GEN-FIRST:event_jButtonCariMouseClicked
+        // TODO add your handling code here:
+        Object[] kolom = { "Judul" };
+        DefaultTableModel model = new DefaultTableModel(kolom, 0);
+        for (Buku buku2 : bukuDipinjamCollection) {
+            if(buku2.judul.equals(buku.judul)) {
+                bukuDipinjamCollection.remove(buku2);
+                break;
+            }
+        }
+        bukuDipinjamCollection.remove(buku);
+    }
 
     public void display(ArrayList<Buku> bukuList) {
         Object[] kolom = { "Judul" };
@@ -378,5 +375,6 @@ public class FormPeminjaman extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private ArrayList<BukuDipinjam> bukuDipinjamCollection = new ArrayList<BukuDipinjam>();
     // End of variables declaration                   
 }
