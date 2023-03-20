@@ -1,6 +1,10 @@
 package perpustakaan;
 
 public class BukuDipinjam {
-    private int lama;
+    public int lama;
+    public String judul;
     
+    // public BukuDipinjam(int lama) {
+    //     this.lama = lama;
+    // }
 }
