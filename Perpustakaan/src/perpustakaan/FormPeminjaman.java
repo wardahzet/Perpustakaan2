@@ -4,28 +4,19 @@
  */
 package perpustakaan;
 
-import java.awt.event.ActionEvent;
-import java.util.ArrayList;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-import javax.swing.table.DefaultTableModel;
-import java.util.Vector;
-
-public class FormPeminjaman extends javax.swing.JFrame {
+/**
+ *
+ * @author Alifia
+ */
+public class UI_Peminjaman extends javax.swing.JFrame {
 
     /**
      * Creates new form UI_Peminjaman
      */
-    public FormPeminjaman() {
+    public UI_Peminjaman() {
         initComponents();
     }
 
-    public void tampilkan() {
-        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        this.pack();
-        this.setLocationRelativeTo(null);
-        this.setVisible(true);
-    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -50,32 +41,9 @@ public class FormPeminjaman extends javax.swing.JFrame {
         LamaPinjam = new javax.swing.JLabel();
         JudulBuku = new javax.swing.JLabel();
         Input_cari1 = new javax.swing.JTextField();
-        btnSubmit = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(600, 600));
-
-        
-    btnCari1.addMouseListener(new java.awt.event.MouseAdapter() {
-        public void mouseClicked(java.awt.event.MouseEvent evt) {
-            btnCari1MouseClicked(evt);
-        }
-    });
-    btnBatal.addMouseListener(new java.awt.event.MouseAdapter() {
-        public void mouseClicked(java.awt.event.MouseEvent evt) {
-            btnBatalMouseClicked(evt);
-        }
-    });
-    btnKonfirmasi.addMouseListener(new java.awt.event.MouseAdapter() {
-        public void mouseClicked(java.awt.event.MouseEvent evt) {
-            btnKonfirmasiMouseClicked(evt);
-        }
-    });
-    btnPinjam.addMouseListener(new java.awt.event.MouseAdapter() {
-        public void mouseClicked(java.awt.event.MouseEvent evt) {
-            btnPinjamMouseClicked(evt);
-        }
-    });
 
         jPanel1.setBackground(new java.awt.Color(222, 222, 222));
 
@@ -100,7 +68,6 @@ public class FormPeminjaman extends javax.swing.JFrame {
         );
 
         Input_lama.setFont(new java.awt.Font("Comic Sans MS", 0, 12)); // NOI18N
-        Input_lama.setText("input");
 
         btnPinjam.setBackground(new java.awt.Color(222, 222, 222));
         btnPinjam.setFont(new java.awt.Font("Comic Sans MS", 1, 12)); // NOI18N
@@ -155,17 +122,12 @@ public class FormPeminjaman extends javax.swing.JFrame {
         btnKonfirmasi.setText("Konfirmasi");
 
         LamaPinjam.setFont(new java.awt.Font("Comic Sans MS", 0, 12)); // NOI18N
-        LamaPinjam.setText("Lama Peminjaman");
+        LamaPinjam.setText("Lama ");
 
         JudulBuku.setFont(new java.awt.Font("Comic Sans MS", 0, 12)); // NOI18N
         JudulBuku.setText("Judul Buku");
 
         Input_cari1.setFont(new java.awt.Font("Comic Sans MS", 0, 12)); // NOI18N
-        Input_cari1.setText("input");
-
-        btnSubmit.setBackground(new java.awt.Color(222, 222, 222));
-        btnSubmit.setFont(new java.awt.Font("Comic Sans MS", 1, 12)); // NOI18N
-        btnSubmit.setText("Submit");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -175,61 +137,57 @@ public class FormPeminjaman extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(JudulBuku, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(12, 12, 12)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnPinjam, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnBatal, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(Input_cari1, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btnCari1, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(Input_lama, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnSubmit, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(JudulBuku, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(LamaPinjam, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(29, 29, 29)
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(btnPinjam, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(btnBatal, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(18, 18, 18)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 157, Short.MAX_VALUE)))
+                            .addComponent(Input_lama, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 89, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnKonfirmasi)
-                .addGap(33, 33, 33))
+                .addGap(58, 58, 58))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(18, 18, 18)
-                .addComponent(JudulBuku)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(Input_cari1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnCari1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(8, 8, 8)
-                        .addComponent(LamaPinjam)
+                        .addGap(18, 18, 18)
+                        .addComponent(JudulBuku))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(LamaPinjam)))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(Input_cari1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnCari1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Input_lama, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 191, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(24, 24, 24)
+                        .addComponent(btnPinjam, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(Input_lama, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnSubmit, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(28, 28, 28)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(btnPinjam, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(28, 28, 28)
-                                .addComponent(btnBatal, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnBatal, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnKonfirmasi, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(192, Short.MAX_VALUE))
+                .addContainerGap(204, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -248,99 +206,41 @@ public class FormPeminjaman extends javax.swing.JFrame {
         );
 
         pack();
-    }
+    }// </editor-fold>                        
 
-    private void btnCari1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonCariMouseClicked
-        // TODO add your handling code here:
-        String judul = Input_cari1.getText();
-        Perpustakaan.controllerPeminjaman.cariBuku(judul);
-    }
-    private void btnBatalMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonCariMouseClicked
-        // TODO add your handling code here:
-        DefaultTableModel model = (DefaultTableModel) Table_buku.getModel();
-        int selectedRow = Table_buku.getSelectedRow();
-        if (selectedRow != -1) { // pastikan ada baris yang dipilih
-            BukuProvider dataProvider = new BukuProvider();
-            String judul = (String) model.getValueAt(selectedRow, 0);
-            Buku buku = dataProvider.selectBuku(judul).get(0);
-            hapusBuku(buku);
-        }
-        ArrayList<Buku> list = new ArrayList<>();
-        list.addAll(bukuDipinjamCollection);
-        tampilPinjaman(list);
-    }
-
-    private void btnKonfirmasiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonCariMouseClicked
-        // TODO add your handling code here:
-        DefaultTableModel model = (DefaultTableModel) Table_buku.getModel();
-        if(Table_buku.getRowCount() <= 10){
-            JOptionPane.showMessageDialog(this, "Peminjaman telah dikonfirmasi");
-        }
-        else{
-            JOptionPane.showMessageDialog(this, "Jumlah buku yang dipinjam melebihi batas maksimal 10 buku");
-        }
-    }
-
-    private void btnPinjamMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonCariMouseClicked
-        // TODO add your handling code here:
-        DefaultTableModel model = (DefaultTableModel) Table_pencarian.getModel();
-        int selectedRow = Table_pencarian.getSelectedRow();
-        ArrayList<String> data = new ArrayList<String>();
-        if (selectedRow != -1) { // pastikan ada baris yang dipilih
-            BukuProvider dataProvider = new BukuProvider();
-            String judul = (String) model.getValueAt(selectedRow, 0);
-            Buku buku = dataProvider.selectBuku(judul).get(0);
-            int lama = Integer.parseInt(Input_lama.getText());
-            if(lama > 0) {
-                tambahBuku(buku, lama);
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
             }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(UI_Peminjaman.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(UI_Peminjaman.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(UI_Peminjaman.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(UI_Peminjaman.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        System.out.println(bukuDipinjamCollection);
-        ArrayList<Buku> list = new ArrayList<>();
-        list.addAll(bukuDipinjamCollection);
-        tampilPinjaman(list);
-    }
+        //</editor-fold>
 
-    private void tambahBuku(Buku buku, int lama) {
-        BukuDipinjam bukuDipinjam = new BukuDipinjam(buku.judul,lama);
-        bukuDipinjamCollection.add(bukuDipinjam);
-    }
-
-    private void tampilPinjaman(ArrayList<Buku> buku) {
-        Object[] kolom = { "Judul" };
-        DefaultTableModel model = new DefaultTableModel(kolom, 0);
-        
-        for(Buku bukuu : buku) {
-            Object[] baris = { bukuu.judul };
-            model.addRow(baris);
-        }
-        
-        Table_buku.setModel(model);
-    }
-
-    private void hapusBuku(Buku buku) {//GEN-FIRST:event_jButtonCariMouseClicked
-        // TODO add your handling code here:
-        Object[] kolom = { "Judul" };
-        DefaultTableModel model = new DefaultTableModel(kolom, 0);
-        for (Buku buku2 : bukuDipinjamCollection) {
-            if(buku2.judul.equals(buku.judul)) {
-                bukuDipinjamCollection.remove(buku2);
-                break;
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new UI_Peminjaman().setVisible(true);
             }
-        }
-        bukuDipinjamCollection.remove(buku);
-    }
-
-    public void display(ArrayList<Buku> bukuList) {
-        Object[] kolom = { "Judul" };
-        DefaultTableModel model = new DefaultTableModel(kolom, 0);
-        
-        for(Buku buku : bukuList) {
-            Object[] baris = { buku.judul };
-            model.addRow(baris);
-        }
-        
-        Table_pencarian.setModel(model);
+        });
     }
 
     // Variables declaration - do not modify                     
@@ -354,12 +254,10 @@ public class FormPeminjaman extends javax.swing.JFrame {
     private javax.swing.JButton btnCari1;
     private javax.swing.JButton btnKonfirmasi;
     private javax.swing.JButton btnPinjam;
-    private javax.swing.JButton btnSubmit;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private ArrayList<BukuDipinjam> bukuDipinjamCollection = new ArrayList<BukuDipinjam>();
     // End of variables declaration                   
 }
