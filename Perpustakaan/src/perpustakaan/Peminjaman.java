@@ -3,6 +3,5 @@ package perpustakaan;
 import java.util.ArrayList;
 
 public class Peminjaman {
-    public ArrayList<BukuDipinjam> daftarBuku;
-    
+    public ArrayList<BukuDipinjam> daftarBuku = new ArrayList<>();
 }

@@ -15,6 +15,7 @@ public class Perpustakaan {
     public static BukuProvider bukuProvider;
     public static PeminjamanController controllerPeminjaman;
     public static FormPeminjaman formPeminjaman;
+    public static PeminjamanManager peminjamanManager = new PeminjamanManager();
     
     /**
      * @param args the command line arguments
@@ -30,7 +31,7 @@ public class Perpustakaan {
         Perpustakaan.halamanUtamaUI.setVisible(true);
         
         
-        // TODO code application logic here
+       
     }
     
 }

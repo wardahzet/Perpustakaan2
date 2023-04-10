@@ -1,6 +1,5 @@
 package perpustakaan;
 
-import java.awt.Dialog;
 import java.util.ArrayList;
 
 public class PeminjamanController {
@@ -29,10 +28,27 @@ public class PeminjamanController {
             dialogUI.setVisible(true);
         }
     }
-
-    @SuppressWarnings("unchecked")
     public void pinjam(ArrayList<BukuDipinjam> bukuDipinjam) {
-         
+        if(bukuDipinjam.size() < 1) {
+            DialogUI dialogUI = new DialogUI("Tidak ada buku yang dipilih");
+            dialogUI.pack();
+            dialogUI.setLocationRelativeTo(null);
+            dialogUI.setVisible(true);
+                return;
+        }
+        boolean hasil = Perpustakaan.peminjamanManager.saves(bukuDipinjam);
+        if(hasil) {
+            DialogUI dialogUI = new DialogUI("Peminjaman telah dikonfirmasi");
+            dialogUI.pack();
+            dialogUI.setLocationRelativeTo(null);
+            dialogUI.setVisible(true);
+        } else {
+            DialogUI dialogUI = new DialogUI("Jumlah buku yang dipinjam melebihi batas maksimal 10 buku");
+            dialogUI.pack();
+            dialogUI.setLocationRelativeTo(null);
+            dialogUI.setVisible(true);
+        }
+
     }
     
 }

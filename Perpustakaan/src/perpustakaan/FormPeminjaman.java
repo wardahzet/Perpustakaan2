@@ -4,17 +4,29 @@
  */
 package perpustakaan;
 
+import java.util.ArrayList;
+
+import javax.swing.JFrame;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Alifia
  */
-public class UI_Peminjaman extends javax.swing.JFrame {
+public class FormPeminjaman extends javax.swing.JFrame {
 
     /**
-     * Creates new form UI_Peminjaman
+     * Creates new form FormPeminjaman
      */
-    public UI_Peminjaman() {
+    public FormPeminjaman() {
         initComponents();
+    }
+
+    public void tampilkan() {
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        this.pack();
+        this.setLocationRelativeTo(null);
+        this.setVisible(true);
     }
 
     /**
@@ -41,6 +53,30 @@ public class UI_Peminjaman extends javax.swing.JFrame {
         LamaPinjam = new javax.swing.JLabel();
         JudulBuku = new javax.swing.JLabel();
         Input_cari1 = new javax.swing.JTextField();
+
+             
+        btnCari1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnCari1MouseClicked(evt);
+            }
+        });
+        btnBatal.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnBatalMouseClicked(evt);
+            }
+        });
+        btnKonfirmasi.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnKonfirmasiMouseClicked(evt);
+            }
+        });
+        btnPinjam.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnPinjamMouseClicked(evt);
+            }
+        });
+
+        
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(600, 600));
@@ -208,39 +244,102 @@ public class UI_Peminjaman extends javax.swing.JFrame {
         pack();
     }// </editor-fold>                        
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(UI_Peminjaman.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(UI_Peminjaman.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(UI_Peminjaman.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(UI_Peminjaman.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
+    private void btnCari1MouseClicked(java.awt.event.MouseEvent evt) {
+        String judul = Input_cari1.getText();
+        Perpustakaan.controllerPeminjaman.cariBuku(judul);
+    }
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new UI_Peminjaman().setVisible(true);
+    private void btnBatalMouseClicked(java.awt.event.MouseEvent evt) {
+        DefaultTableModel model = (DefaultTableModel) Table_buku.getModel();
+        int selectedRow = Table_buku.getSelectedRow();
+        if (selectedRow != -1) { // pastikan ada baris yang dipilih
+            BukuProvider dataProvider = new BukuProvider();
+            String judul = (String) model.getValueAt(selectedRow, 0);
+            Buku buku = dataProvider.selectBuku(judul).get(0);
+            hapusBuku(buku);
+        }
+        ArrayList<Buku> list = new ArrayList<>();
+        list.addAll(bukuDipinjamCollection);
+        tampilPinjaman(list);
+    }
+
+    private void btnKonfirmasiMouseClicked(java.awt.event.MouseEvent evt) { 
+        Perpustakaan.controllerPeminjaman.pinjam(bukuDipinjamCollection);
+    }
+
+    private void btnPinjamMouseClicked(java.awt.event.MouseEvent evt) {
+        DefaultTableModel model = (DefaultTableModel) Table_pencarian.getModel();
+        int selectedRow = Table_pencarian.getSelectedRow();
+        if (selectedRow != -1) { // pastikan ada baris yang dipilih
+            BukuProvider dataProvider = new BukuProvider();
+            String judul = (String) model.getValueAt(selectedRow, 0);
+            Buku buku = dataProvider.selectBuku(judul).get(0);
+            String lama = Input_lama.getText();
+            System.out.print(lama);
+            try {
+                if(Integer.parseInt(lama) < 0) {
+                    DialogUI dialogUI = new DialogUI("Isi lama peminjaman!");
+                    dialogUI.pack();
+                    dialogUI.setLocationRelativeTo(null);
+                    dialogUI.setVisible(true); return;
+                } else {
+                    tambahBuku(buku, Integer.parseInt(lama));
+                }
+            } catch (NumberFormatException e) {
+                DialogUI dialogUI = new DialogUI("Isi lama peminjaman!");
+                dialogUI.pack();
+                dialogUI.setLocationRelativeTo(null);
+                dialogUI.setVisible(true); return;
             }
-        });
+            
+            ArrayList<Buku> list = new ArrayList<>();
+            list.addAll(bukuDipinjamCollection);
+            tampilPinjaman(list);
+        }
+        else {
+            DialogUI dialogUI = new DialogUI("Pilih buku!");
+            dialogUI.pack();
+            dialogUI.setLocationRelativeTo(null);
+            dialogUI.setVisible(true);
+        }
+    }
+
+    private void tambahBuku(Buku buku, int lama) {
+        BukuDipinjam bukuDipinjam = new BukuDipinjam(buku.judul,lama);
+        bukuDipinjamCollection.add(bukuDipinjam);
+    }
+
+    private void tampilPinjaman(ArrayList<Buku> bukuCollection) {
+        Object[] kolom = { "Judul" };
+        DefaultTableModel model = new DefaultTableModel(kolom, 0);
+        
+        for(Buku buku : bukuCollection) {
+            Object[] baris = { buku.judul };
+            model.addRow(baris);
+        }
+        
+        Table_buku.setModel(model);
+    }
+
+    private void hapusBuku(Buku buku) {
+        for (Buku bukuDipinjam : bukuDipinjamCollection) {
+            if(bukuDipinjam.judul.equals(buku.judul)) {
+                bukuDipinjamCollection.remove(bukuDipinjam);
+                break;
+            }
+        }
+    }
+
+    public void display(ArrayList<Buku> bukuList) {
+        Object[] kolom = { "Judul" };
+        DefaultTableModel model = new DefaultTableModel(kolom, 0);
+        
+        for(Buku buku : bukuList) {
+            Object[] baris = { buku.judul };
+            model.addRow(baris);
+        }
+        
+        Table_pencarian.setModel(model);
     }
 
     // Variables declaration - do not modify                     
@@ -259,5 +358,6 @@ public class UI_Peminjaman extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private ArrayList<BukuDipinjam> bukuDipinjamCollection = new ArrayList<BukuDipinjam>();
     // End of variables declaration                   
 }

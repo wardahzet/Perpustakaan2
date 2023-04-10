@@ -93,8 +93,7 @@ public class FormPencarian extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButtonCariMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonCariMouseClicked
-        // TODO add your handling code here:
+    private void jButtonCariMouseClicked(java.awt.event.MouseEvent evt) {
         String judul = jTextFieldJudul.getText();
         Perpustakaan.controllerPencarian.cariBuku(judul);
     }//GEN-LAST:event_jButtonCariMouseClicked
